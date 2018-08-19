@@ -52,7 +52,7 @@ Player.prototype.render = function() {
 // Place the player object in a variable called player
 
 // array allEnemies for storing all enemy objects
-var allEnemies = []
+var allEnemies = [];
 // var player that invokes an new Player object referenced by var player
 var player = new Player();
 // push property of enemy object to array allEnemies
