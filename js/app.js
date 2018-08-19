@@ -6,7 +6,11 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    //this 'Enemy object' position x y
+    this.x = 100;
+    this.y = 100;
 };
+
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -32,6 +36,9 @@ var Player = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-boy.png';
+    //this 'player object' position x y
+    this.x = 200;
+    this.y = 400;
 };
 
 // Update the enemy's position, required method for game
