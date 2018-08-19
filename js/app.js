@@ -48,12 +48,6 @@ Player.prototype.update = function() {
 		// which will ensure the game runs at the same speed for
 		// all computers.
 
-		// setting value of ctlKey to null will give player a hop movement
-		// otherwise, player will continue to move in the one direction
-		// unless, change its direction of movement
-		// player will never come to a stop
-
-
 		// reseting player location
 };
 
@@ -65,14 +59,19 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(inputKey){
 		this.playerCtrlKey = inputKey;
 
-	 if (this.playerCtrlKey === 'left' ) {
+	 if (this.playerCtrlKey === 'left' && this.x !== 0 ) {
+				this.x = this.x - 100;
 			 console.log(this.playerCtrlKey);
-	 } else if (this.playerCtrlKey === 'right' ) {
+	 } else if (this.playerCtrlKey === 'right'  && this.x != 400 ) {
+			this.x = this.x + 100;
 			 console.log(this.playerCtrlKey);
-	 } else if (this.playerCtrlKey === 'up') {
+	 } else if (this.playerCtrlKey === 'up' && this.y !== -15 ) {
+				console.log(this.y);
+			this.y = this.y - 83;
 			 console.log(this.playerCtrlKey);
-	 } else if (this.playerCtrlKey === 'down' ) {
+	 } else if (this.playerCtrlKey === 'down'  && this.y != 400  ) {
 			 console.log(this.playerCtrlKey);
+			this.y = this.y + 83;
 	 }
 };
 
