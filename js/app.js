@@ -1,26 +1,53 @@
 // Enemies our player must avoid
+var valueOfY = [68, 151, 234];
+/*
+ *  Enemies our player must avoid
+ *  Enemies have random y-values and speeds from an array of possible values.
+ *  As the player scores higher, the enemies move faster and more
+ * enemies appear at once. They also cover more of the screen.
+ */
 var Enemy = function() {
 		// Variables applied to each of our instances go here,
 		// we've provided one for you to get started
-
 		// The image/sprite for our enemies, this uses
 		// a helper we've provided to easily load images
 		this.sprite = 'images/enemy-bug.png';
-		//this 'Enemy object' position x y
-		this.x = 100;
-		this.y = 100;
+		//Setting the Enemy initial location
+		this.x = 0;
+		this.y = valueOfY[Math.floor(Math.random() * 3)];//400 317 234 151 68
+		// Setting the Enemy speed
+		this.speed = Math.floor(100 + (Math.random() * 200));
+
+
 };
 
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/*
+ *  Update the enemy's position
+ *  Parameter: dt, a time delta between ticks. Ensures the
+ *  game runs at the same speed for all computers.
+ */
 Enemy.prototype.update = function(dt) {
-		// You should multiply any movement by the dt parameter
-		// which will ensure the game runs at the same speed for
-		// all computers.
-};
+    this.x += (this.speed) * dt;
+ /*
+    * Checks for collision between enemy and player.
+    * If any enemy touches with the player, the player is
+    * returned to the bottom of the screen.
+    */
 
-// Draw the enemy on the screen, required method for game
+    // if enemy moves out of the frame, following code changes enemy's speed and Y location (row)
+    if (this.x > 705) {
+        this.x = -301;
+        this.y = valueOfY[Math.floor(Math.random() * 3)];
+        this.speed = Math.floor(100 + (Math.random() * 200));
+    }
+
+    // checks collision between player and enemy and increment counter
+    checkCollision(this, player);
+};
+/*
+ *  Draw the enemy on the screen
+ */
+
 Enemy.prototype.render = function() {
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -75,14 +102,40 @@ Player.prototype.handleInput = function(inputKey){
 	 }
 };
 
+
+Player.prototype.reset = function() {
+		setTimeout(() => {
+			this.x = 200;
+			this.y = 400;
+		}, 280);
+};
+
+var checkCollision = function(enemyPosition, playerPosition) {
+    // check for collision between enemy and player
+    if (!(enemyPosition.y + 82 < playerPosition.y ||
+        enemyPosition.y > playerPosition.y + 82 ||
+        enemyPosition.x + 99 < playerPosition.x ||
+        enemyPosition.x > playerPosition.x + 99)) {
+
+                console.log('Game Over!');
+								playerPosition.reset();
+        }
+};
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 // array allEnemies for storing all enemy objects
+var totalEnemies = 4;
 var allEnemies = [];
+
+for (var i = 0; i < totalEnemies; i++) {
+    allEnemies.push(new Enemy());
+}
 // var player that invokes an new Player object referenced by var player
-var player = new Player();
+player = new Player();
 // push property of enemy object to array allEnemies
 allEnemies.push(new Enemy());
 
